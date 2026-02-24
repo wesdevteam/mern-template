@@ -21,7 +21,6 @@ export const useTokenStore = create<TokenStoreType>((set, get) => ({
     if (existing) return existing;
 
     const p = (async () => {
-      set({ loading: true });
       try {
         const res = await refreshTokenApi();
         const token = res?.accessToken ?? null;
@@ -33,7 +32,7 @@ export const useTokenStore = create<TokenStoreType>((set, get) => ({
         set({ accessToken: null });
         return false;
       } finally {
-        set({ loading: false, _refreshPromise: null });
+        set({ _refreshPromise: null });
       }
     })();
 
